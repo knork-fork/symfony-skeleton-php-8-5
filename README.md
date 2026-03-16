@@ -1,17 +1,33 @@
 # Symfony skeleton with PHP 8.5 Runtime
 
-### Tech Stack
+## Usage
+
+```bash
+# Clone the repository, rename services, and run tests to verify everything is working correctly.
+(PROJECT=my-symfony-project \
+  && git clone https://github.com/knork-fork/symfony-skeleton-php-8-5 "$PROJECT" \
+  && cd "$PROJECT" \
+  && rm -rf .git && git init && git add -A && git commit -m "Initial commit" \
+  && sed -i "s/skeleton-php-fpm/${PROJECT}-php-fpm/g; s/skeleton-webserver/${PROJECT}-webserver/g" docker-compose.yml .github/workflows/.github-ci.yml docker/* \
+  && docker compose up -d --build \
+  && docker/composer install \
+  && docker/phpunit)
+```
+
+## Features
+
+#### Tech Stack
 
 - **Backend:** PHP 8.5 / Symfony 8.0 (served via nginx + php-fpm)
 
-### Quality Gates
+#### Quality Gates
 
 **Backend (PHP):**
 - `docker/phpunit` -- PHPUnit tests (unit, integration, functional)
 - `docker/phpstan` analyse -- PHPStan static analysis (level 5)
 - `docker/php-cs-fixer` fix --dry-run -- PHP CS Fixer code style
 
-### Docker Setup
+#### Docker Setup
 
 All services run in Docker. The `docker/` directory contains shortcut scripts:
 
@@ -23,21 +39,8 @@ All services run in Docker. The `docker/` directory contains shortcut scripts:
 | `docker/php-cs-fixer` | Run PHP CS Fixer |
 | `docker/phpunit` | Run PHPUnit |
 
-### Services & Ports
+#### Services & Ports
 
 | Service | Container | Port |
 |---------|-----------|------|
 | Nginx (API) | skeleton-webserver | 57123 |
-
-### Getting Started
-
-```bash
-# Start all containers
-docker compose up -d
-
-# Install backend deps
-docker/composer install
-
-# Run backend tests
-docker/phpunit
-```
