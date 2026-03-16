@@ -7,8 +7,8 @@
 (PROJECT=my-symfony-project \
   && git clone https://github.com/knork-fork/symfony-skeleton-php-8-5 "$PROJECT" \
   && cd "$PROJECT" \
-  && rm -rf .git && git init && git add -A && git commit -m "Initial commit" \
   && sed -i "s/skeleton-php-fpm/${PROJECT}-php-fpm/g; s/skeleton-webserver/${PROJECT}-webserver/g" docker-compose.yml .github/workflows/.github-ci.yml docker/* \
+  && rm -rf .git && git init && git add -A && git commit -m "Initial commit" \
   && docker compose up -d --build \
   && docker/composer install \
   && docker/phpunit)
