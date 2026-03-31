@@ -4,14 +4,14 @@
 
 ```bash
 # Clone the repository, rename services, and run tests to verify everything is working correctly.
-(PROJECT=my-symfony-project \
+(PROJECT=my-symfony-project PORT=57123 \
   && git clone https://github.com/knork-fork/symfony-skeleton-php-8-5 "$PROJECT" \
   && cd "$PROJECT" \
-  && sed -i "s/skeleton-php-fpm/${PROJECT}-php-fpm/g; s/skeleton-webserver/${PROJECT}-webserver/g" docker-compose.yml .github/workflows/.github-ci.yml docker/* \
-  && rm -rf .git && git init && git add -A && git commit -m "Initial commit" \
+  && sed -i "s/skeleton-php-fpm/${PROJECT}-php-fpm/g; s/skeleton-webserver/${PROJECT}-webserver/g; s/12345/${PORT}/g" docker-compose.yml .github/workflows/.github-ci.yml docker/* \
   && docker compose up -d --build \
   && docker/composer install \
-  && docker/phpunit)
+  && docker/quality-check \
+  && rm -rf .git && git init && git add -A && git commit -m "Initial commit")
 ```
 
 ## Features
