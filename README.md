@@ -7,7 +7,7 @@
 (PROJECT=my-symfony-project PORT=57123 \
   && git clone https://github.com/knork-fork/symfony-skeleton-php-8-5 "$PROJECT" \
   && cd "$PROJECT" \
-  && sed -i "s/skeleton-php-fpm/${PROJECT}-php-fpm/g; s/skeleton-webserver/${PROJECT}-webserver/g; s/12345/${PORT}/g" docker-compose.yml .github/workflows/.github-ci.yml docker/* \
+  && sed -i "s/skeleton-php-fpm/${PROJECT}-php-fpm/g; s/skeleton-webserver/${PROJECT}-webserver/g; s/12345:80/${PORT}:80/g" docker-compose.yml .github/workflows/.github-ci.yml docker/* \
   && docker compose up -d --build \
   && docker/composer install \
   && docker/quality-check \
